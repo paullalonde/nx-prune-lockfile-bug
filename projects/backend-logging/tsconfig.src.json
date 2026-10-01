@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist"
+	},
+	"exclude": [
+		"eslint.config.ts",
+		"node_modules",
+		"dist",
+		"dist-spec",
+		"spec"
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"name": "backend",
+	"targets": {
+		"build-all": {},
+		"docker-build": {},
+		"zzz-project-order": {}
+	}
+}

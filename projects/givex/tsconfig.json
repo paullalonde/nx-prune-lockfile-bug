@@ -1,0 +1,46 @@
+{
+	"compilerOptions": {
+		"alwaysStrict": true,
+		"baseUrl": ".",
+		"declaration": true,
+		"declarationDir": "./dist/types",
+		"downlevelIteration": true,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"lib": [
+			"esnext"
+		],
+		"moduleResolution": "node",
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"removeComments": true,
+		"rootDir": "./src",
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"types": [
+			"node"
+		]
+	},
+	"exclude": [
+		".nyc_output",
+		"coverage",
+		"dist",
+		"dist-spec",
+		"node_modules",
+		"spec/wip"
+	],
+	"include": [
+		"src"
+	]
+}

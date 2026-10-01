@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"outDir": "./dist",
+		"sourceMap": true,
+		"target": "es2019",
+		"lib": [
+			"es2019"
+		],
+		"types": [
+			"node",
+			"jasmine",
+			"reflect-metadata"
+		],
+		"incremental": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"exclude": [
+		"node_modules",
+		"functions",
+		"api",
+		"dist",
+		"isolate"
+	]
+}

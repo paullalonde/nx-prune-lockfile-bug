@@ -1,0 +1,7 @@
+{
+	"name": "backend-logging",
+	"targets": {
+		"build-all": {},
+		"zzz-project-order": {}
+	}
+}

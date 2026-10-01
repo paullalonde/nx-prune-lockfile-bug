@@ -1,0 +1,7 @@
+{
+	"name": "agent-common",
+	"targets": {
+		"build-all": {},
+		"zzz-project-order": {}
+	}
+}

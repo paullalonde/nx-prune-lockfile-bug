@@ -1,0 +1,5 @@
+node_modules/
+.nx/
+.nxcache/
+projects/*/dist/
+projects/*/node_modules/

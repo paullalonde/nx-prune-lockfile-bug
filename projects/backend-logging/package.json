@@ -1,0 +1,88 @@
+{
+	"name": "@internal/backend-logging",
+	"version": "3.2.0",
+	"main": "dist/index.js",
+	"typings": "dist/index.d.ts",
+	"scripts": {
+		"build": "npx tsc -p tsconfig.src.json"
+	},
+	"files": [
+		"dist/**/*.js",
+		"dist/**/*.d.ts",
+		"dist/index.d.ts",
+		"dist/index.umd.js"
+	],
+	"license": "ISC",
+	"dependencies": {
+		"@internal/common": "*",
+		"json-stable-stringify": "^1.3.0",
+		"logform": "^2.7.0",
+		"moment": "^2.29.1",
+		"safe-stable-stringify": "^2.5.0",
+		"semaphore": "^1.1.0",
+		"winston": "^3.8.2",
+		"winston-daily-rotate-file": "4.5.5",
+		"winston-transport": "4.4.0"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.37.0",
+		"@types/jasmine": "^5.1.10",
+		"@types/node": "^22.15.21",
+		"@types/semaphore": "^1.1.1",
+		"@typescript-eslint/eslint-plugin": "^8.46.1",
+		"@typescript-eslint/parser": "^8.46.1",
+		"eslint": "^9.37.0",
+		"jasmine": "^5.12.0",
+		"jasmine-spec-reporter": "^7.0.0",
+		"nyc": "^17.1.0",
+		"typescript": "^5.8.3"
+	},
+	"engines": {
+		"node": "^22.16.0"
+	},
+	"nx": {
+		"includedScripts": [
+			"build",
+			"lint",
+			"test"
+		],
+		"namedInputs": {
+			"source": [
+				"environment",
+				"{projectRoot}/src/**/*",
+				"{projectRoot}/tsconfig.*"
+			]
+		},
+		"targets": {
+			"build": {
+				"inputs": [
+					"source",
+					"^source"
+				],
+				"outputs": [
+					"{projectRoot}/dist/"
+				]
+			},
+			"lint": {
+				"inputs": [
+					"source",
+					"{projectRoot}/spec/**/*",
+					"{projectRoot}/eslint.config.ts"
+				]
+			},
+			"test": {
+				"inputs": [
+					"source",
+					"{projectRoot}/spec/**/*",
+					"{projectRoot}/.nycrc.*",
+					"^source"
+				],
+				"outputs": [
+					"{projectRoot}/.nyc_output/",
+					"{projectRoot}/coverage/",
+					"{projectRoot}/dist-spec/"
+				]
+			}
+		}
+	}
+}

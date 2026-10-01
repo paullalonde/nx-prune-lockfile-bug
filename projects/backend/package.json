@@ -1,0 +1,190 @@
+{
+	"name": "@internal/backend",
+	"version": "3.2.0",
+	"scripts": {
+		"build": "npx tsc -p tsconfig.json",
+		"isolate": "npx isolate",
+		"package": "npm run isolate",
+		"prune": "npx nx run backend:prune"
+	},
+	"files": [
+		"dist/"
+	],
+	"license": "ISC",
+	"dependencies": {
+		"@aws-sdk/client-ec2": "^3.641.0",
+		"@aws-sdk/client-secrets-manager": "^3.650.0",
+		"@aws-sdk/client-sqs": "^3.637.0",
+		"@azure/storage-blob": "12.23.0",
+		"@google-cloud/compute": "^6.0.0",
+		"@google-cloud/storage": "^7.14.0",
+		"@internal/givex": "*",
+		"@internal/agent-common": "*",
+		"@internal/api-common": "*",
+		"@internal/backend-logging": "*",
+		"@internal/common": "*",
+		"@opentelemetry/api": "^1.9.1",
+		"@opentelemetry/exporter-metrics-otlp-grpc": "^0.220.0",
+		"@opentelemetry/instrumentation-runtime-node": "^0.33.0",
+		"@opentelemetry/resources": "^2.8.0",
+		"@opentelemetry/sdk-metrics": "^2.8.0",
+		"@opentelemetry/sdk-node": "^0.220.0",
+		"@opentelemetry/semantic-conventions": "^1.41.1",
+		"@redis/client": "^6.1.0",
+		"@sendgrid/helpers": "^7.7.0",
+		"@sendgrid/mail": "^8.1.4",
+		"archiver": "^5.3.1",
+		"axios": "^1.7.9",
+		"axios-retry": "^4.5.0",
+		"commander": "^12.1.0",
+		"cron": "^2.1.0",
+		"elasticsearchclient": "^0.5.3",
+		"file-type": "^16.5.4",
+		"firebase-admin": "^12.7.0",
+		"flat": "^5.0.2",
+		"fs-extra": "^10.1.0",
+		"glob": "^10.3.3",
+		"handlebars": "^4.7.7",
+		"handlebars-intl": "^1.1.2",
+		"handlebars-utils": "^1.0.6",
+		"html-entities": "^2.3.3",
+		"html-to-text": "^9.0.5",
+		"inversify": "^7.5.1",
+		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
+		"moment-timezone": "^0.5.39",
+		"mysql2": "~3.16.3",
+		"reflect-metadata": "^0.2.2",
+		"request": "^2.88.2",
+		"request-promise-native": "^1.0.9",
+		"safe-stable-stringify": "^2.5.0",
+		"sass": "^1.63.2",
+		"sharp": "^0.33.5",
+		"simple-oauth2": "^5.1.0",
+		"sqlstring": "^2.3.3",
+		"twilio": "^4.23.0",
+		"url-join": "^4.0.0",
+		"winston": "^3.8.2"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.37.0",
+		"@types/fs-extra": "^9.0.13",
+		"@types/glob": "^8.0.0",
+		"@types/html-to-text": "^9.0.4",
+		"@types/jasmine": "^5.1.10",
+		"@types/lodash": "^4.17.20",
+		"@types/node": "^22.15.21",
+		"@types/redis": "^2.8.32",
+		"@types/request": "^2.48.8",
+		"@types/sqlstring": "^2.3.0",
+		"@typescript-eslint/eslint-plugin": "^8.46.1",
+		"@typescript-eslint/parser": "^8.46.1",
+		"dotenv": "^16.0.3",
+		"eslint": "^9.37.0",
+		"find-config": "^1.0.0",
+		"isolate-package": "^1.38.0",
+		"jasmine": "^5.12.0",
+		"jasmine-spec-reporter": "^7.0.0",
+		"nyc": "^17.1.0",
+		"typescript": "^5.8.3"
+	},
+	"engines": {
+		"node": "^22.16.0"
+	},
+	"config": {
+		"bumpVersion": true
+	},
+	"nx": {
+		"includedScripts": [
+			"build",
+			"lint",
+			"package",
+			"test"
+		],
+		"namedInputs": {
+			"source": [
+				"environment",
+				"{projectRoot}/bin/prebuild.sh",
+				"{projectRoot}/spec/**/*",
+				"{projectRoot}/src/**/*",
+				"{projectRoot}/tsconfig.*",
+				"{projectRoot}/../management-console/database.rules.json",
+				"{projectRoot}/../management-console/src/assets/cron-jobs.json",
+				"{projectRoot}/../management-console/src/assets/report-definitions.json",
+				"{projectRoot}/../management-console/src/assets/report-templates.json"
+			]
+		},
+		"targets": {
+			"build": {
+				"inputs": [
+					"source",
+					"^source"
+				],
+				"outputs": [
+					"{projectRoot}/dist/"
+				]
+			},
+			"lint": {
+				"inputs": [
+					"source",
+					"{projectRoot}/eslint.config.ts"
+				]
+			},
+			"package": {
+				"dependsOn": [
+					"test"
+				],
+				"inputs": [
+					"source",
+					"{projectRoot}/isolate.config.json",
+					"^source"
+				],
+				"outputs": [
+					"{projectRoot}/isolate/",
+					"{projectRoot}/isolate.tgz"
+				]
+			},
+			"prune-lockfile": {
+				"dependsOn": ["build"],
+				"executor": "@nx/js:prune-lockfile",
+				"outputs": [
+					"{projectRoot}/dist/package.json",
+					"{projectRoot}/dist/package-lock.json"
+				],
+				"options": {
+					"buildTarget": "build"
+				}
+			},
+			"copy-workspace-modules": {
+				"dependsOn": ["build"],
+				"cache": true,
+				"executor": "@nx/js:copy-workspace-modules",
+				"outputs": [
+					"{projectRoot}/dist/workspace_modules"
+				],
+				"options": {
+					"buildTarget": "build"
+				}
+			},
+			"prune": {
+				"dependsOn": [
+					"prune-lockfile",
+					"copy-workspace-modules"
+				],
+				"executor": "nx:noop"
+			},
+			"test": {
+				"inputs": [
+					"source",
+					"{projectRoot}/.nycrc.*",
+					"^source"
+				],
+				"outputs": [
+					"{projectRoot}/.nyc_output/",
+					"{projectRoot}/coverage/"
+				]
+			}
+		}
+	}
+}
