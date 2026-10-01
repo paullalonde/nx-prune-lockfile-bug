@@ -8,27 +8,37 @@ falls back to writing the full root lockfile as the "pruned" output and
 emits:
 
 ```
-NX   An error occurred while creating pruned lockfile
-...
+ NX   An error occurred while creating pruned lockfile
+
+Please open an issue at `https://github.com/nrwl/nx/issues/new?template=1-bug.yml` and provide a reproduction.
+To prevent the build from breaking we are returning the root lock file.
+If you run `npm install --package-lock-only` in your output folder it will regenerate the correct pruned lockfile.
+
 Original error: Following packages could not be mapped to the NPM lockfile:
-- npm:semver@7.8.5
 - npm:readable-stream@2.3.8
 - npm:isarray@1.0.0
 - npm:safe-buffer@5.1.2
 - npm:string_decoder@1.1.1
-- npm:@opentelemetry/exporter-metrics-otlp-grpc@0.220.0
-- npm:@opentelemetry/core@2.9.0
-  ... (51 packages total — see "Full error output" below)
-    at nestMappedPackages (node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:461:15)
-    at nestMappedPackages (node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:467:9)
-    ...
-    at mapSnapshots (node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:403:9)
-    at stringifyNpmLockfile (node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:274:28)
-    at buildLockFile (node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:271:58)
-    at createPrunedLockfile (node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:326:29)
-    at generatePrunedDeployOutput (node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:393:41)
 
-NX   The pruned output falls back to the root lockfile
+
+Error: Following packages could not be mapped to the NPM lockfile:
+- npm:readable-stream@2.3.8
+- npm:isarray@1.0.0
+- npm:safe-buffer@5.1.2
+- npm:string_decoder@1.1.1
+    at nestMappedPackages (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:461:15)
+    at nestMappedPackages (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:467:9)
+    at nestMappedPackages (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:467:9)
+    at nestMappedPackages (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:467:9)
+    at nestMappedPackages (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:467:9)
+    at mapSnapshots (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:403:9)
+    at stringifyNpmLockfile (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/npm-parser.js:274:28)
+    at buildLockFile (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:271:58)
+    at createPrunedLockfile (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:326:29)
+    at generatePrunedDeployOutput (/Users/paull/src/icible/infrastructure/Utils/nx-prune-lockfile-bug/node_modules/nx/dist/src/plugins/js/lock-file/lock-file.js:393:41)
+
+
+ NX   The pruned output falls back to the root lockfile
 ...
 `npm ci` in the output will fail; run `npm install` instead.
 ```
